@@ -5,16 +5,17 @@ import { Component } from '@angular/core';
   template: `<h1>{{title}} </h1>
             <h2>My Heroes</h2>
             <ul class="heroes">
-              <li *ngFor="let hero of heroes">
+              <li *ngFor="let hero of heroes" (click)="onSelect(hero)">
                 <!-- each hero goes here -->
                   <span class="badge">{{hero.id}}</span> {{hero.name}}
 
 
               </li>
             </ul>
-            <h2>{{selectedhero.name}} details</h2>
-            <div><label>id: </label>{{selectedhero.id}}</div>
-            <div><label>name: </label><input [(ngModel)]="selectedhero.name" placeholder="name" (click)=onSelect(hero)></div>`,
+            <div *ngIf="selectedHero">
+            <h2>{{selectedHero.name}} details</h2>
+            <div><label>id: </label>{{selectedHero.id}}</div>
+            <div><label>name: </label><input [(ngModel)]="selectedHero.name" placeholder="name" ></div></div>`,
   styles: [`
             .selected {  background-color: #CFD8DC !important;
              color: white;
@@ -71,10 +72,11 @@ export class AppComponent  {
 
 
     heroes = HEROES;
-   selectedHero: Hero;
-   onselect(hero: Hero): void {
-     this.selectedHero = hero;
-   }
+    selectedHero: Hero;
+    onSelect(hero: Hero): void {
+      this.selectedHero = hero;
+    }
+
 }
 
 export class Hero {
